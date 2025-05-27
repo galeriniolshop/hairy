@@ -25,8 +25,34 @@ layout: default
       {% endif %}
     </header>
     
+    <!-- In-article Ad (Top) -->
+    <div class="ad-container in-article-ad">
+      <ins class="adsbygoogle"
+           style="display:block; text-align:center;"
+           data-ad-layout="in-article"
+           data-ad-format="fluid"
+           data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+           data-ad-slot="YOUR_ARTICLE_AD_SLOT_ID"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+    
     <div class="post-content">
       {{ content }}
+    </div>
+    
+    <!-- In-article Ad (Bottom) -->
+    <div class="ad-container in-article-ad">
+      <ins class="adsbygoogle"
+           style="display:block; text-align:center;"
+           data-ad-layout="in-article"
+           data-ad-format="fluid"
+           data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+           data-ad-slot="YOUR_ARTICLE_AD_SLOT_ID"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
     </div>
     
     <footer class="post-footer">
