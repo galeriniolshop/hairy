@@ -1,0 +1,68 @@
+---
+layout: default
+---
+
+<article class="post">
+  <div class="container">
+    <header class="post-header">
+      <div class="post-categories">
+        {% for category in page.categories %}
+          <span class="category-tag">{{ category }}</span>
+        {% endfor %}
+      </div>
+      <h1 class="post-title">{{ page.title }}</h1>
+      <div class="post-meta">
+        <span class="post-date">{{ page.date | date: "%b %d, %Y" }}</span>
+        {% if page.author %}
+          <span class="post-author">by {{ page.author }}</span>
+        {% endif %}
+      </div>
+      
+      {% if page.featured_image %}
+        <div class="post-featured-image">
+          <img src="{{ page.featured_image }}" alt="{{ page.title }}" loading="lazy">
+        </div>
+      {% endif %}
+    </header>
+    
+    <div class="post-content">
+      {{ content }}
+    </div>
+    
+    <footer class="post-footer">
+      <div class="post-tags">
+        {% for tag in page.tags %}
+          <a href="/tag/{{ tag | slugify }}" class="tag">{{ tag }}</a>
+        {% endfor %}
+      </div>
+      
+      <div class="post-share">
+        <h4>Share this article:</h4>
+        <div class="share-buttons">
+          <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ site.url }}{{ page.url | url_encode }}" target="_blank" class="share-button twitter">Twitter</a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url | url_encode }}" target="_blank" class="share-button facebook">Facebook</a>
+          <a href="https://pinterest.com/pin/create/button/?url={{ site.url }}{{ page.url | url_encode }}&media={{ page.featured_image | url_encode }}&description={{ page.title | url_encode }}" target="_blank" class="share-button pinterest">Pinterest</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</article>
+
+<section class="related-posts">
+  <div class="container">
+    <h2 class="section-title">You Might Also Like</h2>
+    <div class="related-grid">
+      {% assign related_posts = site.posts | where_exp:"post", "post.url != page.url" | where_exp:"post", "post.categories contains page.categories[0]" | limit:3 %}
+      {% if related_posts.size > 0 %}
+        {% for post in related_posts %}
+          {% include post-card.html %}
+        {% endfor %}
+      {% else %}
+        {% assign related_posts = site.posts | where_exp:"post", "post.url != page.url" | sample:3 %}
+        {% for post in related_posts %}
+          {% include post-card.html %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>

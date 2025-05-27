@@ -1,0 +1,26 @@
+<div class="post-card">
+  <a href="{{ post.url | relative_url }}" class="post-card-link">
+    <div class="post-card-image">
+      {% if post.featured_image %}
+        <img src="{{ post.featured_image }}" alt="{{ post.title }}" loading="lazy">
+      {% else %}
+        <div class="post-card-image-placeholder"></div>
+      {% endif %}
+    </div>
+    <div class="post-card-content">
+      <div class="post-card-categories">
+        {% for category in post.categories limit:1 %}
+          <span class="category-tag">{{ category }}</span>
+        {% endfor %}
+      </div>
+      <h3 class="post-card-title">{{ post.title }}</h3>
+      <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 100 }}</p>
+      <div class="post-card-meta">
+        <span class="post-date">{{ post.date | date: "%b %d, %Y" }}</span>
+        {% if post.author %}
+          <span class="post-author">by {{ post.author }}</span>
+        {% endif %}
+      </div>
+    </div>
+  </a>
+</div>

@@ -1,0 +1,69 @@
+---
+layout: default
+---
+
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Master the Art of Hairstyling</h1>
+    <p class="hero-subtitle">From basic techniques to professional styles, learn at your own pace with our step-by-step tutorials</p>
+    <div class="hero-buttons">
+      <a href="#featured" class="btn btn-primary">Explore Tutorials</a>
+      <a href="/about" class="btn btn-secondary">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<section class="level-navigation">
+  <div class="container">
+    <div class="level-cards">
+      <a href="/category/beginner" class="level-card">
+        <div class="level-icon">🌱</div>
+        <h3>Beginner</h3>
+        <p>Basic techniques and simple styles for complete novices</p>
+      </a>
+      <a href="/category/intermediate" class="level-card">
+        <div class="level-icon">🌿</div>
+        <h3>Intermediate</h3>
+        <p>Build on basics with more complex styling methods</p>
+      </a>
+      <a href="/category/advanced" class="level-card">
+        <div class="level-icon">🌲</div>
+        <h3>Advanced</h3>
+        <p>Create salon-quality styles with professional techniques</p>
+      </a>
+      <a href="/category/pro" class="level-card">
+        <div class="level-icon">✨</div>
+        <h3>Professional</h3>
+        <p>Master expert styling for special occasions and editorial looks</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="featured" class="featured-tutorials">
+  <div class="container">
+    <h2 class="section-title">Featured Tutorials</h2>
+    <div class="tutorial-grid">
+      {% for tutorial in site.tutorials limit:6 %}
+        {% include tutorial-card.html %}
+      {% endfor %}
+    </div>
+    <div class="view-more">
+      <a href="/tutorials" class="btn btn-outline">View All Tutorials</a>
+    </div>
+  </div>
+</section>
+
+<section class="latest-tips">
+  <div class="container">
+    <h2 class="section-title">Latest Tips & Advice</h2>
+    <div class="post-grid">
+      {% for post in site.posts limit:3 %}
+        {% include post-card.html %}
+      {% endfor %}
+    </div>
+    <div class="view-more">
+      <a href="/blog" class="btn btn-outline">Read More Articles</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,114 @@
+---
+layout: default
+---
+
+<article class="tutorial-content">
+  <div class="container">
+    <div class="tutorial-header">
+      <div class="tutorial-categories">
+        {% for category in page.categories %}
+          <span class="category-tag">{{ category }}</span>
+        {% endfor %}
+      </div>
+      <h1 class="tutorial-title">{{ page.title }}</h1>
+      
+      <div class="tutorial-meta">
+        <div class="difficulty-level level-{{ page.difficulty | downcase }}">
+          <span class="level-label">{{ page.difficulty }}</span>
+        </div>
+        <div class="tutorial-time">
+          <span class="time-icon">⏱️</span>
+          <span>{{ page.time_required }}</span>
+        </div>
+        <div class="tutorial-date">
+          <span class="date-icon">📅</span>
+          <span>{{ page.date | date: "%b %d, %Y" }}</span>
+        </div>
+      </div>
+      
+      {% if page.featured_image %}
+        <div class="tutorial-featured-image">
+          <img src="{{ page.featured_image }}" alt="{{ page.title }}" loading="lazy">
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="tutorial-body">
+      <div class="tutorial-tools">
+        <h3>What You'll Need</h3>
+        <ul class="tools-list">
+          {% for tool in page.tools %}
+            <li>{{ tool }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      
+      <div class="tutorial-introduction">
+        {{ page.introduction | markdownify }}
+      </div>
+      
+      <div class="tutorial-steps">
+        <h2>Step-by-Step Instructions</h2>
+        {{ content }}
+      </div>
+      
+      {% if page.tips.size > 0 %}
+        <div class="tutorial-tips">
+          <h3>Pro Tips</h3>
+          <ul class="tips-list">
+            {% for tip in page.tips %}
+              <li>{{ tip }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+      
+      {% if page.variations.size > 0 %}
+        <div class="tutorial-variations">
+          <h3>Style Variations</h3>
+          <ul class="variations-list">
+            {% for variation in page.variations %}
+              <li>{{ variation }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="tutorial-footer">
+      <div class="tutorial-tags">
+        {% for tag in page.tags %}
+          <a href="/tag/{{ tag | slugify }}" class="tag">{{ tag }}</a>
+        {% endfor %}
+      </div>
+      
+      <div class="tutorial-share">
+        <h4>Share this tutorial:</h4>
+        <div class="share-buttons">
+          <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ site.url }}{{ page.url | url_encode }}" target="_blank" class="share-button twitter">Twitter</a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url | url_encode }}" target="_blank" class="share-button facebook">Facebook</a>
+          <a href="https://pinterest.com/pin/create/button/?url={{ site.url }}{{ page.url | url_encode }}&media={{ page.featured_image | url_encode }}&description={{ page.title | url_encode }}" target="_blank" class="share-button pinterest">Pinterest</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<section class="related-tutorials">
+  <div class="container">
+    <h2 class="section-title">You Might Also Like</h2>
+    <div class="related-grid">
+      {% assign related_posts = site.tutorials | where_exp:"tutorial", "tutorial.url != page.url" | where_exp:"tutorial", "tutorial.categories contains page.categories[0]" | limit:3 %}
+      {% if related_posts.size > 0 %}
+        {% for tutorial in related_posts %}
+          {% include tutorial-card.html %}
+        {% endfor %}
+      {% else %}
+        {% assign related_posts = site.tutorials | where_exp:"tutorial", "tutorial.url != page.url" | sample:3 %}
+        {% for tutorial in related_posts %}
+          {% include tutorial-card.html %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  {% seo %}
+</head>
+<body>
+  <div class="site-container">
+    {% include header.html %}
+    
+    <main class="main-content">
+      {{ content }}
+    </main>
+    
+    {% include footer.html %}
+  </div>
+
+  <script>
+    // Theme toggle functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      const themeToggle = document.getElementById('theme-toggle');
+      const htmlElement = document.documentElement;
+      
+      // Check for saved theme preference or respect OS preference
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        htmlElement.setAttribute('data-theme', savedTheme);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        htmlElement.setAttribute('data-theme', 'dark');
+      }
+      
+      // Update toggle button state
+      if (htmlElement.getAttribute('data-theme') === 'dark') {
+        themeToggle.innerHTML = '☀️';
+        themeToggle.setAttribute('aria-label', 'Switch to light mode');
+      } else {
+        themeToggle.innerHTML = '🌙';
+        themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+      }
+      
+      // Toggle theme when button is clicked
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        htmlElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        themeToggle.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+        themeToggle.setAttribute('aria-label', `Switch to ${newTheme === 'dark' ? 'light' : 'dark'} mode`);
+      });
+    });
+
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuToggle = document.getElementById('menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('is-active');
+        menuToggle.setAttribute('aria-expanded', 
+          menuToggle.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'
+        );
+      });
+    });
+  </script>
+</body>
+</html>

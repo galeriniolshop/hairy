@@ -1,0 +1,43 @@
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo">
+        <a href="{{ '/' | relative_url }}">
+          <span class="logo-icon">✂️</span>
+          <span class="logo-text">HairStyle Guide</span>
+        </a>
+      </div>
+      
+      <nav class="main-nav">
+        <ul class="nav-links">
+          <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a></li>
+          <li><a href="{{ '/tutorials' | relative_url }}" {% if page.url contains '/tutorials' %}class="active"{% endif %}>Tutorials</a></li>
+          <li><a href="{{ '/blog' | relative_url }}" {% if page.url contains '/blog' %}class="active"{% endif %}>Blog</a></li>
+          <li><a href="{{ '/about' | relative_url }}" {% if page.url == '/about/' %}class="active"{% endif %}>About</a></li>
+          <li><a href="{{ '/contact' | relative_url }}" {% if page.url == '/contact/' %}class="active"{% endif %}>Contact</a></li>
+        </ul>
+      </nav>
+      
+      <div class="header-actions">
+        <button id="theme-toggle" aria-label="Toggle dark mode" class="theme-toggle">🌙</button>
+        <button id="menu-toggle" aria-label="Toggle menu" aria-expanded="false" class="menu-toggle">
+          <span class="menu-icon"></span>
+        </button>
+      </div>
+    </div>
+    
+    <div id="mobile-menu" class="mobile-menu">
+      <ul class="mobile-nav-links">
+        <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a></li>
+        <li><a href="{{ '/tutorials' | relative_url }}" {% if page.url contains '/tutorials' %}class="active"{% endif %}>Tutorials</a></li>
+        <li><a href="{{ '/blog' | relative_url }}" {% if page.url contains '/blog' %}class="active"{% endif %}>Blog</a></li>
+        <li><a href="{{ '/about' | relative_url }}" {% if page.url == '/about/' %}class="active"{% endif %}>About</a></li>
+        <li><a href="{{ '/contact' | relative_url }}" {% if page.url == '/contact/' %}class="active"{% endif %}>Contact</a></li>
+      </ul>
+      
+      <div class="mobile-search">
+        {% include search-form.html %}
+      </div>
+    </div>
+  </div>
+</header>
