@@ -1195,6 +1195,26 @@ button {
   }
 }
 
+// AdSense Containers
+.ad-container {
+  margin: var(--spacing-6) 0;
+  text-align: center;
+  min-height: 90px;
+  
+  &.header-ad {
+    margin-top: 0;
+    padding: var(--spacing-4) 0;
+    background-color: var(--color-background-alt);
+  }
+  
+  &.in-article-ad {
+    margin: var(--spacing-8) 0;
+    padding: var(--spacing-4);
+    background-color: var(--color-background-alt);
+    border-radius: var(--border-radius);
+  }
+}
+
 // Media queries
 @media (max-width: 1200px) {
   .footer-content {
@@ -1227,6 +1247,17 @@ button {
     grid-column: 1;
     position: static;
     margin-bottom: var(--spacing-6);
+  }
+  
+  .ad-container {
+    &.header-ad {
+      padding: var(--spacing-3) 0;
+    }
+    
+    &.in-article-ad {
+      margin: var(--spacing-6) 0;
+      padding: var(--spacing-3);
+    }
   }
 }
 
@@ -1294,5 +1325,18 @@ button {
   
   .pagination {
     flex-wrap: wrap;
+  }
+  
+  .ad-container {
+    margin: var(--spacing-4) 0;
+    
+    &.header-ad {
+      padding: var(--spacing-2) 0;
+    }
+    
+    &.in-article-ad {
+      margin: var(--spacing-4) 0;
+      padding: var(--spacing-2);
+    }
   }
 }
