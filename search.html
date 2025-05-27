@@ -1,0 +1,138 @@
+---
+layout: default
+title: Search Results
+---
+
+<section class="search-results-page">
+  <div class="container">
+    <h1 class="section-title">Search Results</h1>
+    
+    <div class="search-container">
+      {% include search-form.html %}
+    </div>
+    
+    <div id="search-results">
+      <p class="search-summary">Showing results for: <span id="search-query"></span></p>
+      <div class="results-container"></div>
+    </div>
+    
+    <div id="no-results" style="display: none;">
+      <p>No results found for your search. Please try different keywords.</p>
+      
+      <div class="suggested-content">
+        <h2>You might be interested in:</h2>
+        <div class="tutorial-grid">
+          {% for tutorial in site.tutorials limit:3 %}
+            {% include tutorial-card.html %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchQuery = new URLSearchParams(window.location.search).get('q');
+    const searchQueryDisplay = document.getElementById('search-query');
+    const resultsContainer = document.querySelector('.results-container');
+    const noResults = document.getElementById('no-results');
+    
+    if (searchQuery) {
+      searchQueryDisplay.textContent = searchQuery;
+      
+      // This is a simple front-end search simulation
+      // In a real Jekyll site, you would implement a proper search solution
+      // like Lunr.js, Algolia, or a custom search with JavaScript
+      
+      // For demo purposes, we'll just show some random tutorials
+      const hasResults = Math.random() > 0.3; // 70% chance to show results
+      
+      if (hasResults) {
+        // Create some fake search results
+        let resultHTML = '<div class="search-results-list">';
+        
+        // Tutorials (would be actual filtered results in a real implementation)
+        resultHTML += '<h2>Tutorial Results</h2>';
+        resultHTML += '<div class="tutorial-grid">';
+        {% for tutorial in site.tutorials limit:2 %}
+          resultHTML += `
+            <div class="tutorial-card">
+              <a href="{{ tutorial.url | relative_url }}" class="tutorial-card-link">
+                <div class="tutorial-card-image">
+                  {% if tutorial.featured_image %}
+                    <img src="{{ tutorial.featured_image }}" alt="{{ tutorial.title }}" loading="lazy">
+                  {% else %}
+                    <div class="tutorial-card-image-placeholder"></div>
+                  {% endif %}
+                  <div class="difficulty-badge difficulty-{{ tutorial.difficulty | downcase }}">{{ tutorial.difficulty }}</div>
+                </div>
+                <div class="tutorial-card-content">
+                  <div class="tutorial-card-categories">
+                    {% for category in tutorial.categories limit:1 %}
+                      <span class="category-tag">{{ category }}</span>
+                    {% endfor %}
+                  </div>
+                  <h3 class="tutorial-card-title">{{ tutorial.title }}</h3>
+                  <p class="tutorial-card-excerpt">{{ tutorial.excerpt | strip_html | truncate: 100 }}</p>
+                  <div class="tutorial-card-meta">
+                    <span class="tutorial-time">{{ tutorial.time_required }}</span>
+                    <span class="tutorial-date">{{ tutorial.date | date: "%b %d, %Y" }}</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          `;
+        {% endfor %}
+        resultHTML += '</div>';
+        
+        // Blog posts (would be actual filtered results in a real implementation)
+        resultHTML += '<h2>Blog Post Results</h2>';
+        resultHTML += '<div class="post-grid">';
+        {% for post in site.posts limit:1 %}
+          resultHTML += `
+            <div class="post-card">
+              <a href="{{ post.url | relative_url }}" class="post-card-link">
+                <div class="post-card-image">
+                  {% if post.featured_image %}
+                    <img src="{{ post.featured_image }}" alt="{{ post.title }}" loading="lazy">
+                  {% else %}
+                    <div class="post-card-image-placeholder"></div>
+                  {% endif %}
+                </div>
+                <div class="post-card-content">
+                  <div class="post-card-categories">
+                    {% for category in post.categories limit:1 %}
+                      <span class="category-tag">{{ category }}</span>
+                    {% endfor %}
+                  </div>
+                  <h3 class="post-card-title">{{ post.title }}</h3>
+                  <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 100 }}</p>
+                  <div class="post-card-meta">
+                    <span class="post-date">{{ post.date | date: "%b %d, %Y" }}</span>
+                    {% if post.author %}
+                      <span class="post-author">by {{ post.author }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </a>
+            </div>
+          `;
+        {% endfor %}
+        resultHTML += '</div>';
+        resultHTML += '</div>';
+        
+        resultsContainer.innerHTML = resultHTML;
+        document.getElementById('search-results').style.display = 'block';
+        noResults.style.display = 'none';
+      } else {
+        document.getElementById('search-results').style.display = 'none';
+        noResults.style.display = 'block';
+      }
+    } else {
+      searchQueryDisplay.textContent = 'No search term provided';
+      document.getElementById('search-results').style.display = 'none';
+      noResults.style.display = 'block';
+    }
+  });
+</script>

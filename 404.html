@@ -1,0 +1,34 @@
+---
+layout: default
+permalink: /404.html
+title: Page Not Found
+---
+
+<section class="error-page">
+  <div class="container">
+    <div class="error-content">
+      <h1 class="error-title">404</h1>
+      <h2>Oops! That page can't be found.</h2>
+      <p>It seems the hairstyle you're looking for has been styled differently or moved to a new location.</p>
+      
+      <div class="error-actions">
+        <a href="{{ '/' | relative_url }}" class="btn btn-primary">Go to Homepage</a>
+        <a href="{{ '/tutorials' | relative_url }}" class="btn btn-secondary">Browse Tutorials</a>
+      </div>
+      
+      <div class="error-search">
+        <h3>Or try searching for what you need:</h3>
+        {% include search-form.html %}
+      </div>
+    </div>
+    
+    <div class="suggested-content">
+      <h3>Popular Tutorials</h3>
+      <div class="tutorial-grid">
+        {% for tutorial in site.tutorials limit:3 %}
+          {% include tutorial-card.html %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

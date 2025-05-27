@@ -1,0 +1,35 @@
+---
+layout: default
+title: All Tutorials
+---
+
+<section class="tutorials-page">
+  <div class="container">
+    <h1 class="section-title">Hairstyle Tutorials</h1>
+    
+    <div class="tutorials-filters">
+      <div class="filter-group">
+        <h3>Filter by Level:</h3>
+        <div class="filter-options">
+          <a href="/tutorials" class="filter-option {% if page.url == '/tutorials/' %}active{% endif %}">All</a>
+          <a href="/category/beginner" class="filter-option">Beginner</a>
+          <a href="/category/intermediate" class="filter-option">Intermediate</a>
+          <a href="/category/advanced" class="filter-option">Advanced</a>
+          <a href="/category/pro" class="filter-option">Professional</a>
+        </div>
+      </div>
+      
+      <div class="search-container">
+        {% include search-form.html %}
+      </div>
+    </div>
+    
+    <div class="tutorial-grid">
+      {% for tutorial in site.tutorials %}
+        {% include tutorial-card.html %}
+      {% endfor %}
+    </div>
+    
+    {% include pagination.html %}
+  </div>
+</section>

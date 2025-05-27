@@ -1,0 +1,35 @@
+---
+layout: default
+title: Blog
+---
+
+<section class="blog-page">
+  <div class="container">
+    <h1 class="section-title">Hairstyling Tips & Advice</h1>
+    
+    <div class="blog-filters">
+      <div class="filter-group">
+        <h3>Filter by Category:</h3>
+        <div class="filter-options">
+          <a href="/blog" class="filter-option {% if page.url == '/blog/' %}active{% endif %}">All</a>
+          <a href="/category/tips" class="filter-option">Tips & Tricks</a>
+          <a href="/category/products" class="filter-option">Product Reviews</a>
+          <a href="/category/trends" class="filter-option">Hair Trends</a>
+          <a href="/category/care" class="filter-option">Hair Care</a>
+        </div>
+      </div>
+      
+      <div class="search-container">
+        {% include search-form.html %}
+      </div>
+    </div>
+    
+    <div class="post-grid">
+      {% for post in site.posts %}
+        {% include post-card.html %}
+      {% endfor %}
+    </div>
+    
+    {% include pagination.html %}
+  </div>
+</section>
